@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "test": "node --test test/*.test.js",
-    "test:browser": "node test/browser.mjs",
-    "build": "node --check server.js && node --check game.js && node --check rules.js && node --check store.js && node --check public/client.js && node --check daily-scores.js"
+    "test": "node --test *.test.js",
+    "test:browser": "node browser.mjs",
+    "build": "node --check server.js && node --check game.js && node --check rules.js && node --check store.js && node --check client.js && node --check daily-scores.js"
   },
   "dependencies": {
     "express": "^4.21.2",

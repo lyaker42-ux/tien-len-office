@@ -21,3 +21,5 @@ Cập nhật bản Free:
 - Kiểm thử Socket.IO xác nhận điểm cũ reset trước khi chủ phòng bắt đầu ván ngày mới.
 - Kiểm thử trình duyệt mô phỏng phòng bị mất sau restart: tự về màn hình tạo phòng và tạo phòng mới thành công.
 - Chưa triển khai vào tài khoản Render của người dùng; không có link live được cấp sẵn.
+
+Bản file rời: server chỉ phục vụ ba tài nguyên giao diện; kiểm tra các URL server.js, package.json, store.js, data/game.sqlite đều trả 404. Build và toàn bộ 12 kiểm thử đạt với cấu trúc file rời.

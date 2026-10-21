@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {deck,combo,beats,score,DEFAULT_RULES} from '../rules.js';
-import {newRoom,deal,play,pass,publicState} from '../game.js';
+import {deck,combo,beats,score,DEFAULT_RULES} from './rules.js';
+import {newRoom,deal,play,pass,publicState} from './game.js';
 function room(hands){const r=newRoom('ABCDEF');r.round=2;r.phase='playing';r.players=hands.map((hand,i)=>({name:`P${i}`,token:`secret-${i}`,hand,score:0,finishRank:null,finished:false}));return r;}
 test('deck: 52 unique cards; valid combinations and suit ranking',()=>{
  assert.equal(new Set(deck()).size,52);

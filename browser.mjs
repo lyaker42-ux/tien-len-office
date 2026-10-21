@@ -1,8 +1,8 @@
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
 import {mkdirSync} from 'node:fs';
-import {createGameServer} from '../server.js';
-import {combo,beats} from '../rules.js';
+import {createGameServer} from './server.js';
+import {combo,beats} from './rules.js';
 const game=createGameServer({dbPath:':memory:',turnMs:60000});
 await new Promise(r=>game.server.listen(0,'127.0.0.1',r));
 const url=`http://127.0.0.1:${game.server.address().port}`;

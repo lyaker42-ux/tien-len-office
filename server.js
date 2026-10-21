@@ -14,8 +14,9 @@ export function createGameServer({dbPath=process.env.DB_PATH||path.join(root,'da
  app.disable('x-powered-by');
  app.use((_req,res,next)=>{res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','same-origin');next();});
  app.get('/health',(_req,res)=>res.json({ok:true}));
- app.use(express.static(path.join(root,'public')));
- app.get('/room/:code',(_req,res)=>res.sendFile(path.join(root,'public','index.html')));
+ // Only serve the three browser assets; never expose source, DB or session tokens.
+ for(const asset of ['client.js','style.css'])app.get('/'+asset,(_req,res)=>res.sendFile(path.join(root,asset)));
+ app.get(['/', '/room/:code'],(_req,res)=>res.sendFile(path.join(root,'index.html')));
  const timers=new Map();
  const error=(s,msg)=>s.emit('game_error',msg);
  function identify(s){const room=rooms.get(s.data.code);const idx=room?.players.findIndex(p=>p.token===s.data.token&&p.socketId===s.id)??-1;return {room:idx>=0?room:null,idx};}

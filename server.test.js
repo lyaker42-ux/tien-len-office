@@ -4,9 +4,9 @@ import {mkdtempSync,rmSync} from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {io} from 'socket.io-client';
-import {createGameServer} from '../server.js';
-import {createStore} from '../store.js';
-import {newRoom} from '../game.js';
+import {createGameServer} from './server.js';
+import {createStore} from './store.js';
+import {newRoom} from './game.js';
 function once(s,event){return new Promise((resolve,reject)=>{const t=setTimeout(()=>{s.off(event,cb);reject(new Error('Timed out '+event));},5000);function cb(v){clearTimeout(t);resolve(v);}s.once(event,cb);});}
 async function request(s,action,data,event='state'){const p=once(s,event);s.emit(action,data);return p;}
 test('SQLite saves room and standings once per round; restart keeps scores and tokens',()=>{
@@ -20,6 +20,8 @@ test('4 real sockets: capacity, private hands, host, invalid input, reconnect an
  async function client(){const s=io(url,{transports:['websocket'],reconnection:false});clients.push(s);await once(s,'connect');return s;}
  try{
   assert.equal((await (await fetch(url+'/health')).json()).ok,true);
+  for(const asset of ['/', '/client.js', '/style.css'])assert.equal((await fetch(url+asset)).status,200);
+  for(const hidden of ['/server.js','/package.json','/store.js','/data/game.sqlite'])assert.equal((await fetch(url+hidden)).status,404);
   const a=await client();assert.match(await request(a,'create',null,'game_error'),/Tên/);
   const joinedP=once(a,'joined');let s=await request(a,'create',{name:'Host'});const credentials=await joinedP;
   assert.match(await request(a,'join',{code:s.code,name:'Second seat'},'game_error'),/đã có chỗ/);
