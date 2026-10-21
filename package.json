@@ -1,0 +1,24 @@
+{
+  "name": "tien-len-van-phong-4",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node test/browser.mjs",
+    "build": "node --check server.js && node --check game.js && node --check rules.js && node --check store.js && node --check public/client.js && node --check daily-scores.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.1",
+    "@playwright/test": "^1.58.0"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}
